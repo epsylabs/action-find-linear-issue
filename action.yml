@@ -16,6 +16,9 @@ inputs:
   include-branch-name:
     description: "Taking the PR branch name into account to find issues (default `true`)"
     required: false
+  include-text:
+    description: "Include extra text provided as an input"
+    required: false
   with-team:
     description: "Include `team` node into each resulted `issue` (default `true`)"
     required: false

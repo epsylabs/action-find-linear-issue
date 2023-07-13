@@ -20,6 +20,7 @@ type InputMap = {
   withTeam: boolean;
   withLabels: boolean;
   withProject: boolean;
+  includeText: string;
 };
 
 type ApiKeyInput = Pick<LinearClientOptions, "apiKey">;
@@ -27,7 +28,7 @@ type ApiKeyInput = Pick<LinearClientOptions, "apiKey">;
 type PartsWithOpts<Type> = {
   [Property in keyof Type]: { value: string | undefined; flag: boolean };
 };
-type PartsType = PartsWithOpts<{ branch: void; title: void; body: void }>;
+type PartsType = PartsWithOpts<{ branch: void; title: void; body: void, text: void }>;
 
 type LimitedIssue = Omit<Issue, "team" | "labels" | "project">;
 type FoundIssueType = LimitedIssue & {
@@ -53,6 +54,7 @@ const main = async () => {
       includeTitle: boolCheck(getInput("include-title")),
       includeDescription: boolCheck(getInput("include-description")),
       includeBranchName: boolCheck(getInput("include-branch-name"), true),
+      includeText: getInput("include-text"),
       withTeam: boolCheck(getInput("with-team"), true),
       withLabels: boolCheck(getInput("with-labels"), true),
       withProject: boolCheck(getInput("with-project"), true),
@@ -71,6 +73,10 @@ const main = async () => {
         value: context.payload.pull_request?.body,
         flag: inputs.includeDescription,
       },
+      text: {
+        value: inputs.includeText,
+        flag: true
+      }
     };
 
     for (const [partName, partOpts] of Object.entries(prParts)) {
