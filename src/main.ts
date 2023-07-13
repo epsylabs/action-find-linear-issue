@@ -28,7 +28,12 @@ type ApiKeyInput = Pick<LinearClientOptions, "apiKey">;
 type PartsWithOpts<Type> = {
   [Property in keyof Type]: { value: string | undefined; flag: boolean };
 };
-type PartsType = PartsWithOpts<{ branch: void; title: void; body: void, text: void }>;
+type PartsType = PartsWithOpts<{
+  branch: void;
+  title: void;
+  body: void;
+  text: void;
+}>;
 
 type LimitedIssue = Omit<Issue, "team" | "labels" | "project">;
 type FoundIssueType = LimitedIssue & {
@@ -75,8 +80,8 @@ const main = async () => {
       },
       text: {
         value: inputs.includeText,
-        flag: true
-      }
+        flag: true,
+      },
     };
 
     for (const [partName, partOpts] of Object.entries(prParts)) {

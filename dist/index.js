@@ -9701,6 +9701,7 @@ const main = async () => {
             includeTitle: boolCheck((0, core_1.getInput)("include-title")),
             includeDescription: boolCheck((0, core_1.getInput)("include-description")),
             includeBranchName: boolCheck((0, core_1.getInput)("include-branch-name"), true),
+            includeText: (0, core_1.getInput)("include-text"),
             withTeam: boolCheck((0, core_1.getInput)("with-team"), true),
             withLabels: boolCheck((0, core_1.getInput)("with-labels"), true),
             withProject: boolCheck((0, core_1.getInput)("with-project"), true),
@@ -9717,6 +9718,10 @@ const main = async () => {
             body: {
                 value: github_1.context.payload.pull_request?.body,
                 flag: inputs.includeDescription,
+            },
+            text: {
+                value: inputs.includeText,
+                flag: true,
             },
         };
         for (const [partName, partOpts] of Object.entries(prParts)) {
